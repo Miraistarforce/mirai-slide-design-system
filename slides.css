@@ -1,0 +1,365 @@
+/* =====================================================================
+   ミライスターフォース スライド デザインシステム / Components
+   ---------------------------------------------------------------------
+   「スライド参考」の各画像に対応するレイアウトだけを定義する。
+   ここに無いフォーマット（カード/3分割枠/英語ラベル/フッター等）は使わない。
+   ===================================================================== */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #C9D1DA;            /* 編集画面の地色（スライド外） */
+  font-family: var(--font-base);
+  color: var(--c-ink-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- スライド1枚（16:9） ------------------------------------------- */
+.slide {
+  position: relative;
+  width: var(--slide-w);
+  height: var(--slide-h);
+  margin: 28px auto;
+  padding: var(--pad-y) var(--pad-x);
+  background: var(--c-base);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 6px 24px rgba(27, 35, 48, 0.12);
+}
+
+/* --- 共通：左上の「緑の丸」（白背景スライドの目印） -----------------
+   参考画像のほぼ全てに付く。白背景スライドには必ず付ける。 */
+.circle-mark {
+  position: absolute;
+  top: var(--pad-y);
+  left: var(--pad-x);
+  width: var(--circle-d);
+  height: var(--circle-d);
+  border: var(--circle-w) solid var(--c-green);
+  border-radius: 50%;
+}
+
+/* タイトル上の小さいラベル（細字） */
+.label {
+  font-size: var(--fs-label);
+  font-weight: var(--weight-bold);
+  color: var(--c-ink);
+  margin-bottom: 14px;
+}
+
+/* スライドタイトル（太字・濃紺）。青文字にもできる。 */
+.title {
+  font-size: var(--fs-title);
+  font-weight: var(--weight-bold);
+  color: var(--c-ink);
+  line-height: var(--lh-tight);
+  letter-spacing: 0.01em;
+}
+.title--blue { color: var(--c-blue); }   /* タイトルを青にする型 */
+
+/* 本文・説明文（細字・行間広め・小さめ） */
+.desc {
+  font-size: var(--fs-body);
+  font-weight: var(--weight-normal);
+  color: var(--c-ink-body);
+  line-height: var(--lh-body);
+}
+
+/* =====================================================================
+   型A. 白背景・タイトル＋本文（左揃え・余白たっぷり）
+   参考: 文字にメリハリ / 余白はバランスが大切
+   ===================================================================== */
+.slide--basic { justify-content: center; gap: 28px; }
+.slide--basic .title { max-width: 980px; }
+.slide--basic .desc  { max-width: 900px; }
+
+/* =====================================================================
+   型B. 白背景・中央寄せの強調メッセージ
+   参考: 中央揃えが効果的 / デザインにおいて余白は重要
+   小さい一文を上に、強調したい言葉を大きく。
+   ===================================================================== */
+.slide--center { justify-content: center; align-items: center; text-align: center; gap: 18px; }
+.slide--center .hero-sub { font-size: var(--fs-hero-sub); font-weight: var(--weight-bold); color: var(--c-ink); }
+.slide--center .hero { font-size: var(--fs-hero); font-weight: var(--weight-bold); color: var(--c-ink); line-height: var(--lh-tight); }
+
+/* =====================================================================
+   型C. 青背景・白い大タイトル＋透かし数字（強調スライド／章扉）
+   参考: 数字を透かして見せるのもアリ
+   ===================================================================== */
+.slide--blue { background: var(--c-blue); color: var(--c-ink-on-blue); justify-content: center; }
+.slide--blue .circle-mark { border-color: var(--c-green); }
+.slide--blue .wm-num {
+  position: absolute; top: 50%; right: 24px; transform: translateY(-50%);
+  font-family: var(--font-num); font-weight: var(--weight-bold);
+  font-size: var(--fs-wm-num); line-height: 1; color: var(--c-blue-wm);
+  pointer-events: none; user-select: none;
+}
+.slide--blue .blue-title { font-size: var(--fs-blue-title); font-weight: var(--weight-bold); color:#fff; line-height: var(--lh-tight); position: relative; }
+/* タイトル下の説明文は太字にする */
+.slide--blue .desc { color: var(--c-sub-on-blue); margin-top: 24px; max-width: 760px; position: relative; font-weight: var(--weight-bold); }
+
+/* =====================================================================
+   型D. 青背景・扉（左に大タイトル＋説明、右にイラスト、背景に透かし文字）
+   参考: 扉にイラストをいれても、いい感じになる
+   ===================================================================== */
+.slide--cover-illust { background: var(--c-blue); color:#fff; justify-content: center; }
+.slide--cover-illust .wm-text {
+  position: absolute; left: 0; bottom: 40px; width: 100%;
+  font-weight: var(--weight-bold); font-size: 280px; line-height: 1;
+  color: var(--c-blue-wm); letter-spacing: 0.05em; text-align: center;
+  pointer-events: none; user-select: none;
+}
+.slide--cover-illust .cover-text { position: relative; max-width: 620px; }
+.slide--cover-illust .blue-title { font-size: var(--fs-blue-title); font-weight: var(--weight-bold); line-height: var(--lh-tight); }
+.slide--cover-illust .desc { color: var(--c-sub-on-blue); margin-top: 22px; }
+.slide--cover-illust .cover-illust {
+  position: absolute; right: var(--pad-x); bottom: 80px; width: 460px; max-height: 460px;
+}
+
+/* =====================================================================
+   型E. 白背景・イラスト＋文字（左に文字／右にイラスト・2カラム）
+   参考: イラストをいれると突然いい感じになる / イラスト,タイトル青色
+   ===================================================================== */
+.slide--illust { justify-content: center; }
+.slide--illust .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; height: 100%; }
+.slide--illust .col-text { display: flex; flex-direction: column; gap: 26px; }
+.slide--illust .col-illust { display: flex; align-items: center; justify-content: center; }
+.slide--illust .col-illust img { max-width: 100%; max-height: 420px; }
+
+/* =====================================================================
+   型F. 白背景・中央にタイトル＋1枚のイラスト
+   参考: 売上がアップしています！
+   ===================================================================== */
+.slide--illust-center { align-items: center; }
+/* タイトルは少し下げて、上に余白を持たせる */
+.slide--illust-center .title { text-align: center; margin: 90px 0 0; }
+.slide--illust-center .one-illust { flex: 1; display: flex; align-items: center; justify-content: center; }
+.slide--illust-center .one-illust img { max-height: 440px; max-width: 70%; }
+
+/* =====================================================================
+   型G. 白背景・アイコン横並び（4つ／ラベル付き・1色強調）
+   参考: 計算/貯金/パソコン/書類（線アイコン＋ピンク差し色）
+   ===================================================================== */
+.slide--icons { justify-content: center; }
+.slide--icons .icon-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; align-items: end; }
+.slide--icons .icon-cell { text-align: center; }
+.slide--icons .icon-cell img { height: 150px; margin-bottom: 22px; }
+.slide--icons .icon-cell .cap { font-size: 30px; font-weight: var(--weight-bold); color: var(--c-ink); }
+
+/* =====================================================================
+   型H. 白背景・写真3枚横並び（大きさを揃える／見出し＋小さい説明）
+   参考: そろっていると美しい / 目立たせたい部分以外は薄くする
+   ===================================================================== */
+.slide--photos { }
+.slide--photos .title { text-align: center; margin-bottom: 44px; }
+.slide--photos .photo-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px; }
+.slide--photos .photo-cell .ph {
+  width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 2px; display: block;
+  background: var(--c-gray-cell);
+}
+.slide--photos .photo-cell h3 { font-size: 26px; font-weight: var(--weight-bold); color: var(--c-ink); margin: 22px 0 10px; }
+.slide--photos .photo-cell p { font-size: var(--fs-small); color: var(--c-ink-body); line-height: 1.6; }
+/* 目立たせたくないセルは薄くする */
+.slide--photos .photo-cell.is-mute .ph { opacity: 0.35; }
+.slide--photos .photo-cell.is-mute h3,
+.slide--photos .photo-cell.is-mute p { color: var(--c-ink-mute); }
+
+/* =====================================================================
+   型I. 左半分に写真＋オーバーカラー＋番号＋見出し／右半分に文字
+   参考: メリハリをつける（左に画像とオーバーカラーとタイトル,右に文字）
+   ===================================================================== */
+.slide--split { padding: 0; flex-direction: row; }
+.slide--split .split-photo {
+  position: relative; width: 50%; height: 100%;
+  background-size: cover; background-position: center;
+}
+.slide--split .split-photo::after { content:""; position:absolute; inset:0; background: var(--overlay); }
+.slide--split .split-photo .circle-mark { top: 56px; left: 56px; z-index: 2; }
+.slide--split .split-photo .big-num {
+  position: absolute; left: 56px; top: 50%; transform: translateY(-50%); z-index: 2;
+  font-family: var(--font-num); font-size: var(--fs-photo-num); font-weight: var(--weight-bold); color:#fff; line-height: 1;
+}
+.slide--split .split-text { width: 50%; height: 100%; padding: 0 72px; display: flex; flex-direction: column; justify-content: center; gap: 22px; }
+
+/* =====================================================================
+   型J. 写真全面＋オーバーカラー＋番号＋大タイトル（章扉）
+   参考: 強調したい時,背景は画像にオーバーカラー
+   ===================================================================== */
+.slide--photo-cover { padding: 0; }
+.slide--photo-cover .bg { position:absolute; inset:0; background-size: cover; background-position: center; }
+.slide--photo-cover .bg::after { content:""; position:absolute; inset:0; background: var(--overlay); }
+.slide--photo-cover .pc-inner { position: relative; z-index: 2; height: 100%; padding: var(--pad-y) var(--pad-x); display: flex; flex-direction: column; justify-content: center; gap: 18px; color:#fff; }
+.slide--photo-cover .pc-num { font-family: var(--font-num); font-size: 40px; font-weight: var(--weight-bold); }
+.slide--photo-cover .pc-title { font-size: 64px; font-weight: var(--weight-bold); line-height: var(--lh-tight); }
+.slide--photo-cover .pc-desc { font-size: var(--fs-body); color: var(--c-sub-on-blue); }
+
+/* =====================================================================
+   型K. 数字で羅列（KPI／タイトル大きく・数字と文字小さく・余白）
+   参考: 数字で羅列するときはタイトル大きく,数字と文字小さく,余白取る
+   ===================================================================== */
+.slide--kpi { justify-content: flex-start; }
+.slide--kpi .title { text-align: center; }   /* タイトルは中央揃えで上に配置 */
+.slide--kpi .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; flex: 1; align-content: center; }
+.slide--kpi .kpi-cell { text-align: center; }
+.slide--kpi .kpi-num { font-family: var(--font-num); font-size: var(--fs-kpi); font-weight: var(--weight-bold); color: var(--c-blue); line-height: 1; }
+.slide--kpi .kpi-num .unit { font-size: var(--fs-kpi-unit); margin-left: 4px; }  /* 単位は小さく */
+.slide--kpi .kpi-label { margin-top: 14px; font-size: var(--fs-body); font-weight: var(--weight-medium); color: var(--c-ink); }
+
+/* =====================================================================
+   型L. 箇条書き（番号付きリスト・左揃え）
+   参考: スライド資料デザインのコツ（1. 2. 3. …）
+   ===================================================================== */
+/* 文字を羅列する型は左に余白を作り、内容を少し右に寄せる */
+.slide--list { justify-content: center; padding-left: 220px; }
+.slide--list .title { margin-bottom: 36px; }
+.slide--list ol { list-style: none; counter-reset: li; display: flex; flex-direction: column; gap: 20px; padding-left: 8px; }
+.slide--list ol li {
+  counter-increment: li; position: relative; padding-left: 56px;
+  font-size: 30px; font-weight: var(--weight-medium); color: var(--c-ink); line-height: 1.3;
+}
+.slide--list ol li::before {
+  content: counter(li) "."; position: absolute; left: 0;
+  font-family: var(--font-num); font-weight: var(--weight-bold); color: var(--c-ink);
+}
+
+/* =====================================================================
+   型M. 表（ベース白・サブはグレー・強調は1色だけ＝ピンク）
+   参考: 配色の見本
+   ===================================================================== */
+.slide--table .title { margin-bottom: 36px; }
+
+/* 角丸の外枠で囲む（はみ出しをクリップ） */
+.tbl-wrap { border-radius: 12px; overflow: hidden; border: 1px solid var(--c-line-tbl); }
+table.tbl { width: 100%; border-collapse: collapse; font-size: 30px; }
+/* 罫線はやや濃く・縦横ともヘッダー行まで引く。文字は太字。 */
+table.tbl th, table.tbl td { padding: 22px 28px; border: 1px solid var(--c-line-tbl); font-weight: var(--weight-bold); }
+
+/* ヘッダー（濃いグレー〜黒）・文字は中央揃え（罫線はヘッダーにも伸ばす） */
+table.tbl thead th { background: var(--c-thead); color:#fff; text-align: center; }
+/* 行ラベル列（薄いグレー）・中央揃え */
+table.tbl tbody th { background: var(--c-trow-label); color: var(--c-ink); text-align: center; }
+/* データセル：数字は右揃え（文字を入れる場合は .c で中央に） */
+table.tbl tbody td { background:#fff; color: var(--c-ink); text-align: right; }
+table.tbl tbody td.c { text-align: center; }   /* 文字データは中央揃え */
+
+/* 強調列：ヘッダーはピンク、セルは薄ピンク（1色だけ強調） */
+table.tbl thead th.em { background: var(--c-pink); border-color: var(--c-pink); }
+table.tbl tbody td.em { background: var(--c-pink-pale); }
+
+.slide--table .note { margin-top: 32px; font-size: var(--fs-body); font-weight: var(--weight-bold); color: var(--c-ink); }
+
+/* =====================================================================
+   型M2. 比較表（記号＋短い説明・自社列を枠と色で強調）
+   参考: 表スライドパターン２,強調したい時
+   各セルは「記号（◎○△×）＋説明」を縦に重ねて中央揃え。
+   強調したい列（弊社）だけ青ヘッダー＋青枠で浮かせる。
+   ===================================================================== */
+.slide--table .cmp { display: flex; align-items: stretch; gap: 0; }
+/* 縦の罫線：各列の右側に線を引く（ヘッダー〜セルまで通す） */
+.cmp-col { flex: 1; display: flex; flex-direction: column; border-right: 1px solid var(--c-line-tbl); }
+.cmp-col.cmp-labels { flex: 0 0 230px; }
+.cmp-head {
+  height: 64px; display: flex; align-items: center; justify-content: center;
+  background: var(--c-thead); color:#fff; font-size: 28px; font-weight: var(--weight-bold);
+  border-bottom: 1px solid var(--c-line-tbl);
+}
+.cmp-labels .cmp-head { background: transparent; border-bottom-color: transparent; }   /* 左上は空欄 */
+.cmp-cell {
+  height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  border-bottom: 1px solid var(--c-line-tbl);   /* 横の罫線（やや濃く・一番下まで引く） */
+}
+/* 行ラベル列：薄いグレーの背景を一番下の罫線まできっちり敷く */
+.cmp-labels .cmp-cell { background: var(--c-trow-label); color: var(--c-ink); font-size: 26px; font-weight: var(--weight-bold); }
+.cmp-cell .sym { font-size: 40px; line-height: 1; }
+.cmp-cell .cap { font-size: 18px; color: var(--c-ink-body); }
+/* 記号の色：◎/○＝ピンク、△＝緑、×＝グレー */
+.sym.best, .sym.ok { color: var(--c-pink); }
+.sym.tri { color: var(--c-teal); }
+.sym.ng  { color: var(--c-gray-x); }
+
+/* 強調列（弊社）：青ヘッダー＋青枠で浮かせる */
+.cmp-col.is-best { margin-top: -18px; border: 3px solid var(--c-blue); border-radius: 12px; overflow: hidden; background:#fff; }
+.cmp-col.is-best .cmp-head { height: 82px; background: var(--c-blue); border-bottom: none; }
+.cmp-col.is-best .cmp-cell:last-child { border-bottom: none; }
+
+/* =====================================================================
+   型N. 横並びフロー（グレーの箱＋矢印・1箇所だけピンク強調）
+   参考: 順番,色1つだけ変えて強調
+   ===================================================================== */
+.slide--flow { justify-content: center; }
+.slide--flow .title { text-align: center; }   /* フロー図のタイトルは中央揃え */
+.slide--flow .flow-row { display: flex; align-items: stretch; justify-content: center; gap: 0; }
+.slide--flow .flow-box {
+  width: 150px; min-height: 360px; background: var(--c-gray-box); color: var(--c-ink);
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  font-size: 30px; font-weight: var(--weight-medium);
+  writing-mode: vertical-rl; padding: 24px 0; letter-spacing: 0.08em;
+}
+.slide--flow .flow-box.em { background: var(--c-pink); color:#fff; }   /* 1箇所だけ強調 */
+.slide--flow .flow-arrow { align-self: center; color: var(--c-arrow); font-size: 26px; margin: 0 18px; }
+
+/* 2パターンの使い分け：
+   ・どこかを強調したいとき → 上の .em を1箇所だけ付ける（1色だけ変える）。
+   ・強調せず順序を教えるだけのとき → 下の .is-uniform を付けて全箱を同じ色に統一する
+     （バラバラに色を変えない。.em が付いていても統一色で塗りつぶす）。 */
+.slide--flow .flow-row.is-uniform .flow-box,
+.slide--flow .flow-row.is-uniform .flow-box.em { background: var(--c-blue); color:#fff; }
+
+/* =====================================================================
+   型O. セクション・トップページ（背景青・上下左右の余白を揃える・大きな番号）
+   参考: タイトルやセクションごとのトップページ,上下左右の余白を揃える,背景カラーあり
+   左上に大タイトル／左下に小さな説明／右下にソリッドな大きい番号。
+   ===================================================================== */
+.slide--section-cover { background: var(--c-blue); color:#fff; padding: 80px; }  /* 余白は四辺そろえる */
+.slide--section-cover .sc-title { font-size: 92px; font-weight: var(--weight-bold); line-height: 1.08; letter-spacing: 0.01em; }
+.slide--section-cover .sc-cap {
+  position: absolute; left: 80px; bottom: 80px;
+  font-size: var(--fs-small); color: var(--c-sub-on-blue); line-height: 1.6;
+}
+.slide--section-cover .sc-num {
+  position: absolute; right: 80px; bottom: 36px;
+  font-family: var(--font-num); font-size: 240px; font-weight: var(--weight-bold);
+  line-height: 1; color:#fff;
+}
+
+/* =====================================================================
+   型P. データ報告（イラスト付き・数字は大きく・単位は小さく）
+   参考: データ報告にイラスト付き,数字は大きく,単位は小さく
+   中央タイトル＋3列（ラベル → イラスト → 大きい数字＋小さい単位）。
+   ===================================================================== */
+.slide--data { justify-content: flex-start; }
+.slide--data .title { text-align: center; margin-bottom: 96px; }
+.slide--data .data-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; align-items: end; }
+.slide--data .data-cell { display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center; }
+.slide--data .data-label { font-size: 28px; font-weight: var(--weight-bold); color: var(--c-ink); }
+.slide--data .data-illust { height: 130px; }
+.slide--data .data-num { font-family: var(--font-num); font-size: 76px; font-weight: var(--weight-bold); color: var(--c-ink); line-height: 1; }
+.slide--data .data-num .unit { font-size: 28px; font-weight: var(--weight-bold); margin-left: 4px; }  /* 単位は小さく */
+
+/* =====================================================================
+   ブランド：表紙・裏表紙（ロゴを使うのはこの2枚だけ）
+   ロゴ = assets/logo/mirai-logo-black.png
+   ===================================================================== */
+.slide--title-page { background: var(--c-blue); color:#fff; justify-content: flex-start; padding: 80px; }  /* 余白しっかり */
+/* 背景にすごく薄い「MIRAI」。文字の下端をイラストの下端（bottom:64px）に揃える */
+.slide--title-page .tp-wm {
+  position: absolute; left: 0; right: 0; bottom: -90px; text-align: center; white-space: nowrap;
+  font-weight: var(--weight-bold); font-size: 300px; line-height: 1; letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.07); z-index: 0; pointer-events: none; user-select: none;
+}
+/* タイトル：左上・左揃え・大きく（行間をほんの少し広げる） */
+.slide--title-page .tp-title { position: relative; z-index: 2; font-size: 72px; font-weight: var(--weight-bold); line-height: 1.28; text-align: left; }
+.slide--title-page .tp-title .accent { color:#fff; }
+/* 説明文：左揃え・太字。タイトルとの余白は広めに。 */
+.slide--title-page .tp-sub { position: relative; z-index: 2; margin-top: 48px; font-size: 24px; font-weight: var(--weight-bold); line-height: 1.7; color: var(--c-sub-on-blue); text-align: left; max-width: 700px; }
+/* イラスト：右側・少し下・大きめ */
+.slide--title-page .tp-illust { position: absolute; right: 80px; bottom: 64px; width: 420px; height: auto; z-index: 1; }
+
+.slide--end { background: var(--c-blue); color:#fff; align-items: center; justify-content: center; text-align: center; gap: 28px; }
+.slide--end .end-title { font-size: 48px; font-weight: var(--weight-bold); line-height: var(--lh-tight); }
+.slide--end .logo { height: 150px; filter: brightness(0) invert(1); }
+
+/* 文中の強調（1色だけ）：太字＋色。色は青かピンクのどちらか1色に統一。 */
+.em-blue { color: var(--c-blue); font-weight: var(--weight-bold); }
+.em-pink { color: var(--c-pink); font-weight: var(--weight-bold); }
