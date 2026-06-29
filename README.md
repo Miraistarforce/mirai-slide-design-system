@@ -103,6 +103,53 @@
 
 新しいスライドは、必ず上の型のいずれかを使う。色・サイズは `tokens.css` の変数から参照し、直接ベタ書きしない。
 
+### フォーマット見本（`example-deck.html` の全スライド）
+
+<table>
+<tr>
+<td width="50%"><b>表紙</b>（ロゴ・大タイトル・背景に薄い MIRAI）<br><img src="previews/00-title.png" width="100%"></td>
+<td width="50%"><b>裏表紙</b>（`slide--end`）<br><img src="previews/end.png" width="100%"></td>
+</tr>
+<tr>
+<td width="50%"><b>型A</b>／白地・タイトル＋本文<br><img src="previews/A-basic.png" width="100%"></td>
+<td width="50%"><b>型B</b>／中央寄せの強調メッセージ<br><img src="previews/B-center.png" width="100%"></td>
+</tr>
+<tr>
+<td width="50%"><b>型C</b>／青背景・透かし数字<br><img src="previews/C-blue.png" width="100%"></td>
+<td width="50%"><b>型O</b>／セクション扉（大きな番号）<br><img src="previews/O-section.png" width="100%"></td>
+</tr>
+<tr>
+<td width="50%"><b>型E</b>／イラスト＋文字（2カラム）<br><img src="previews/E-illust.png" width="100%"></td>
+<td width="50%"><b>型F</b>／中央タイトル＋イラスト<br><img src="previews/F-illust-center.png" width="100%"></td>
+</tr>
+<tr>
+<td width="50%"><b>型G</b>／アイコン横並び<br><img src="previews/G-icons.png" width="100%"></td>
+<td width="50%"><b>型P</b>／データ報告（イラスト＋大きい数字）<br><img src="previews/P-data.png" width="100%"></td>
+</tr>
+<tr>
+<td width="50%"><b>型K</b>／数字で羅列（KPI）<br><img src="previews/K-kpi.png" width="100%"></td>
+<td width="50%"><b>型L</b>／番号付きリスト<br><img src="previews/L-list.png" width="100%"></td>
+</tr>
+<tr>
+<td width="50%"><b>型M</b>／表（強調なし）<br><img src="previews/M-table.png" width="100%"></td>
+<td width="50%"><b>型M</b>／表（1列だけピンク強調）<br><img src="previews/M-table-emphasis.png" width="100%"></td>
+</tr>
+<tr>
+<td width="50%"><b>型M2</b>／比較表（自社列を青枠で強調）<br><img src="previews/M2-compare.png" width="100%"></td>
+<td width="50%"><b>型N</b>／フロー（1ステップだけ強調）<br><img src="previews/N-flow.png" width="100%"></td>
+</tr>
+<tr>
+<td width="50%"><b>型N</b>／フロー（強調なし＝色を統一）<br><img src="previews/N-flow-uniform.png" width="100%"></td>
+<td width="50%"><b>型I</b>／左に写真＋番号／右に文字<br><img src="previews/I-split.png" width="100%"></td>
+</tr>
+<tr>
+<td width="50%"><b>型J</b>／写真全面＋オーバーカラー（章扉）<br><img src="previews/J-photo-cover.png" width="100%"></td>
+<td width="50%"><b>型H</b>／写真3枚（注目以外は薄く）<br><img src="previews/H-photos.png" width="100%"></td>
+</tr>
+</table>
+
+> 画像は `previews/` 内に保存。デザインを変更したら同フォルダを差し替えれば見本も更新されます。
+
 ---
 
 ## ライセンス
